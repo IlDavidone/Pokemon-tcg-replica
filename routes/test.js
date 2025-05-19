@@ -3,6 +3,7 @@ const passport = require('passport');
 const generatePassword = require('../lib/passwordUtils').generatePassword;
 const connection = require('../config/database');
 const User = connection.models.User;
+const Card = connection.models.Card;
 const isAuth = require('./auth').isAuth;
 const isAdmin = require('./auth').isAdmin;
 

@@ -3,6 +3,7 @@ const path = require("node:path");
 const express = require("express");
 const session = require('express-session');
 const mongoose = require("mongoose");
+const fetch = require("undici");
 const connection = require("./config/database");
 const indexRouter = require("./routes/indexRouter");
 const testRouter = require("./routes/test");
