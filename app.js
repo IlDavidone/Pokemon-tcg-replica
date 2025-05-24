@@ -3,13 +3,11 @@ const path = require("node:path");
 const express = require("express");
 const session = require('express-session');
 const mongoose = require("mongoose");
-const fetch = require("undici");
 const connection = require("./config/database");
-const indexRouter = require("./routes/indexRouter");
 const testRouter = require("./routes/test");
 const authMiddleware = require("./routes/auth");
-var crypto = require("crypto");
-var passport = require("passport");
+const crypto = require("crypto");
+const passport = require("passport");
 
 const MongoStore = require('connect-mongo')(session);
 
@@ -31,7 +29,7 @@ app.use(session({
     saveUninitialized: true,
     store: sessionStore,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 14 //gave the cookies a duration of 14 days
+        maxAge: 1000 * 60 * 60 * 24 * 7 //gave the cookies a duration of 7 days
     }
 }));
 

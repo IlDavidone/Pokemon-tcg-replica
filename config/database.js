@@ -68,10 +68,27 @@ const CardSchema = new mongoose.Schema({
     name: String,
     supertype: String,
     hp: Number,
-    types: typesSchema,
+    types: String,
     evolvesFrom: String,
-    abilities: abilitiesSchema,
-    attacks: generalAttacksSchema,
+    abilities: [{
+        name: String,
+        text: String,
+        type: String
+    }],
+    attacks: [{
+        name: String,
+        cost: [String],
+        damage: String,
+        text: String
+    }],
+    weaknesses: [{
+        type: String,
+        value: String
+    }],
+    resistances: [{
+        type: String,
+        value: String
+    }],
 })
 
 const Cards = connection.model('Card', CardSchema);
