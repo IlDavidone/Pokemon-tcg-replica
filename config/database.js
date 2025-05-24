@@ -13,62 +13,19 @@ const UserSchema = new mongoose.Schema({
     username: String,
     hash: String,
     salt: String,
-    admin: Boolean
+    admin: Boolean, 
+    packEnergy: { type: Number, default: 0, max: 5 },
+    lastEnergyRestore: { type: Date, default: null }
 });
 
 const User = connection.model('User', UserSchema);
-
-const typesSchema = new mongoose.Schema({
-    typeOne: String,
-    typeTwo: String,
-    typeThree: String
-});
-
-const abilitiesSchema = new mongoose.Schema({
-    name: String,
-    text: String,
-    type: String
-});
-
-const energyCostSchema = new mongoose.Schema({
-    energyOne: String,
-    energyTwo: String,
-    energyThree: String,
-    energyFour: String,
-    energyFive: String
-})
-
-const attackOneSchema = new mongoose.Schema({
-    name: String,
-    cost: energyCostSchema,
-    damage: String,
-    text: String
-});
-const attackTwoSchema = new mongoose.Schema({
-    name: String,
-    cost: energyCostSchema,
-    damage: String,
-    text: String
-});
-const attackThreeSchema = new mongoose.Schema({
-    name: String,
-    cost: energyCostSchema,
-    damage: String,
-    text: String
-});
-
-const generalAttacksSchema = new mongoose.Schema({
-    attackOne: attackOneSchema,
-    attackTwo: attackTwoSchema,
-    attackThree: attackThreeSchema
-});
 
 const CardSchema = new mongoose.Schema({
     id: String,
     name: String,
     supertype: String,
     hp: Number,
-    types: String,
+    types: [String],
     evolvesFrom: String,
     abilities: [{
         name: String,

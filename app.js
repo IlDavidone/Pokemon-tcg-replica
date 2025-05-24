@@ -8,6 +8,7 @@ const testRouter = require("./routes/test");
 const authMiddleware = require("./routes/auth");
 const crypto = require("crypto");
 const passport = require("passport");
+const startEnergyRestoreScheduler = require("./controllers/energyRestore");
 
 const MongoStore = require('connect-mongo')(session);
 
@@ -45,8 +46,9 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.use("/", testRouter);
+
+startEnergyRestoreScheduler();
 
 app.listen(process.env.PORT, () => {
   console.log(`The server is listening on port ${process.env.PORT}`);
