@@ -68,6 +68,7 @@ const CardSchema = new mongoose.Schema({
         value: String
     }
     ],
+    rarity: String,
     lowResImage: String,
     highResImage: String
 })

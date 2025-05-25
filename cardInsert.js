@@ -38,6 +38,7 @@ async function importBaseSet() {
                 type: r.type,
                 value: r.value
              })) : [],
+            rarity: card.rarity,
             lowResImage: card.images.small,
             highResImage: card.images.large
         } ));
