@@ -37,8 +37,10 @@ app.use(session({
 
 require('./config/passport');
 
+console.log("Initializing passport...");
 app.use(passport.initialize());
 app.use(passport.session());
+console.log("Done! Passport initialized.");
 
 app.use((req, res, next) => {
     console.log(req.session);
@@ -53,3 +55,5 @@ startEnergyRestoreScheduler();
 app.listen(process.env.PORT, () => {
   console.log(`The server is listening on port ${process.env.PORT}`);
 });
+
+console.log("(DBG) Server started.");
