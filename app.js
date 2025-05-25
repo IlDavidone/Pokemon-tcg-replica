@@ -1,6 +1,10 @@
 const http = require("http");
 const path = require("node:path");
 const express = require("express");
+const app = express();
+const server = http.createServer(app);
+const socketio = require("socket.io");
+const io = socketio(server);
 const session = require('express-session');
 const mongoose = require("mongoose");
 const connection = require("./config/database");
@@ -15,8 +19,6 @@ const MongoStore = require('connect-mongo')(session);
 
 require("dotenv").config();
 
-const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,15 +27,20 @@ app.set("view engine", "ejs");
 
 const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions' });
 
-app.use(session({
+const sharedSession = require("express-socket.io-session");
+
+const sessionMiddleware = session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     store: sessionStore,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 //gave the cookies a duration of 7 days
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
-}));
+});
+
+app.use(sessionMiddleware);
+io.use(sharedSession(sessionMiddleware, { autoSave: true }));
 
 
 require('./config/passport');
@@ -43,18 +50,34 @@ app.use(passport.initialize());
 app.use(passport.session());
 console.log("Done! Passport initialized.");
 
-app.use((req, res, next) => {
-    console.log(req.session);
-    console.log(req.user);
-    next();
-});
-
 app.use("/", testRouter);
 
 startEnergyRestoreScheduler();
 
-app.listen(process.env.PORT, () => {
-  console.log(`The server is listening on port ${process.env.PORT}`);
+const User = connection.models.User;
+
+io.on("connection", async (socket) => {
+    const userId = socket.handshake.session?.passport?.user;
+    if (userId) {
+        const user = await User.findByIdAndUpdate(userId, { online: true }, { new: true });
+        if (user) {
+            console.log(`User ${user.username} connected and set online`);
+        } else {
+            console.log("User not found for id:", userId);
+        }
+    }
+
+    socket.on("disconnect", async () => {
+        const userId = socket.handshake.session?.passport?.user;
+        if (userId) {
+            const user = await User.findByIdAndUpdate(userId, { online: false }, { new: true });
+        }
+    });
+});
+
+
+server.listen(process.env.PORT, () => {
+    console.log(`The server is listening on port ${process.env.PORT}`);
 });
 
 addCardToUserCollection("admin", "test");

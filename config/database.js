@@ -19,7 +19,8 @@ const UserSchema = new mongoose.Schema({
     cardsCollection: [{
         card: { type: String, ref: 'Card' },
         quantity: { type: Number, default: 1 }
-    }]
+    }], 
+    online: { type: Boolean, default: false }
 });
 
 const User = connection.model('User', UserSchema);
