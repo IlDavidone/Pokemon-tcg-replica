@@ -20,7 +20,18 @@ const UserSchema = new mongoose.Schema({
         card: { type: String, ref: 'Card' },
         quantity: { type: Number, default: 1 }
     }], 
-    online: { type: Boolean, default: false }
+    online: { type: Boolean, default: false },
+    friendRequests: [{
+        id: String,
+        username: String,
+        date: Date,
+        acceptation: {type: Boolean, default: false}
+    }],
+    friendsList: [{
+        id: String,
+        username: String,
+        dateAdded: Date
+    }]
 });
 
 const User = connection.model('User', UserSchema);

@@ -61,9 +61,9 @@ io.on("connection", async (socket) => {
     if (userId) {
         const user = await User.findByIdAndUpdate(userId, { online: true }, { new: true });
         if (user) {
-            console.log(`User ${user.username} connected and set online`);
+            console.log(`(DBG) User ${user.username} connected and set online`);
         } else {
-            console.log("User not found for id:", userId);
+            console.log("(DBG) User not found for id:", userId);
         }
     }
 

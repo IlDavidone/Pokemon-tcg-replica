@@ -1,0 +1,16 @@
+<ul>
+    <% requests.forEach((req) => { %>
+        <li>
+            <h2><%= req.username %> has sent you a friend request!</h2>
+            <p><%= req.date %></p>
+            <% if (!req.acceptation) { %>
+                <form action="/friend-requests/accept" method="POST" style="display:inline;">
+                    <input type="hidden" name="requestId" value="<%= req._id %>">
+                    <button type="submit">Accept</button>
+                </form>
+            <% } else { %>
+                <span>Accepted</span>
+            <% } %>
+        </li>
+    <% }) %>
+</ul>

@@ -7,7 +7,8 @@ const Card = connection.models.Card;
 const isAuth = require("./auth").isAuth;
 const isNotAuth = require("./auth").isNotAuth;
 const isAdmin = require("./auth").isAdmin;
-const addCardToUserCollection = require("../controllers/cardUtils").addCardToUserCollection;
+const addCardToUserCollection =
+  require("../controllers/cardUtils").addCardToUserCollection;
 
 require("dotenv").config();
 
@@ -26,9 +27,11 @@ router.post(
 router.post("/register", async (req, res, next) => {
   try {
     const existingUser = await User.findOne({ username: req.body.username });
-    
+
     if (existingUser) {
-      return res.status(400).send("User already exists. Please choose another username.");
+      return res
+        .status(400)
+        .send("User already exists. Please choose another username.");
     }
 
     const saltHash = generatePassword(req.body.password);
@@ -52,15 +55,17 @@ router.post("/register", async (req, res, next) => {
 router.post("/admin", async (req, res, next) => {
   addCardToUserCollection(req.body.usernameCard, req.body.cardId);
   res.render("admin");
-})
+});
 
 router.get("/", (req, res, next) => {
-  res.send('<h1>Home</h1><p>Please <a href="/register">Register</a> or <a href="/login">Login</a></p>');
+  res.send(
+    '<h1>Home</h1><p>Please <a href="/register">Register</a> or <a href="/login">Login</a></p>'
+  );
 });
 
 router.get("/home", isAuth, (req, res, next) => {
-  res.render("home", { username: req.user.username } );
-}) 
+  res.render("home", { username: req.user.username });
+});
 
 router.get("/login", isNotAuth, (req, res, next) => {
   res.render("login");
@@ -77,6 +82,72 @@ router.get("/protected-route", isAuth, (req, res, next) => {
 router.get("/admin", isAdmin, (req, res, next) => {
   res.render("admin");
 });
+
+router.get("/friend-requests", isAuth, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const incomingRequests = user.friendRequests || [];
+    res.render("friendsReq", { requests: incomingRequests });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/friend-requests/accept", isAuth, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).send("User not found.");
+
+    const request = user.friendRequests.id(req.body.requestId);
+    if (!request) return res.status(404).send("Friend request not found.");
+
+    request.acceptation = true;
+
+    user.friendsList.push({
+      id: request.id,
+      username: request.username,
+      dateAdded: new Date()
+    });
+
+    const requester = await User.findOne({ username: request.username });
+    if (requester) {
+      requester.friendsList.push({
+        id: user._id,
+        username: user.username,
+        dateAdded: new Date()
+      });
+      await requester.save();
+    }
+
+    await user.save();
+    res.redirect("/friend-requests");
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/add-friends", isAuth, async (req, res, next) => {
+  res.render("addFriends");
+});
+
+router.post("/add-friends", isAuth, async (req, res, next) => {
+  try {
+    const targetFriend = await User.findOne({ username: req.body.username });
+    const user = await User.findById(req.user._id);
+    
+    targetFriend.friendRequests.push({
+      id: user._id,
+      username: user.username,
+      dateAdded: new Date()
+    });
+    
+    await targetFriend.save();
+  }
+  catch (err) {
+    console.error(err);
+  }
+  res.render("addFriends");
+})
 
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
