@@ -7,6 +7,7 @@ const Card = connection.models.Card;
 const isAuth = require("./auth").isAuth;
 const isNotAuth = require("./auth").isNotAuth;
 const isAdmin = require("./auth").isAdmin;
+const addCardToUserCollection = require("../controllers/cardUtils").addCardToUserCollection;
 
 require("dotenv").config();
 
@@ -48,6 +49,11 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+router.post("/admin", async (req, res, next) => {
+  addCardToUserCollection(req.body.usernameCard, req.body.cardId);
+  res.render("admin");
+})
+
 router.get("/", (req, res, next) => {
   res.send('<h1>Home</h1><p>Please <a href="/register">Register</a> or <a href="/login">Login</a></p>');
 });
@@ -68,8 +74,8 @@ router.get("/protected-route", isAuth, (req, res, next) => {
   res.send("Auth route test");
 });
 
-router.get("/admin-route", isAdmin, (req, res, next) => {
-  res.send("Admin route test");
+router.get("/admin", isAdmin, (req, res, next) => {
+  res.render("admin");
 });
 
 router.get("/logout", (req, res, next) => {

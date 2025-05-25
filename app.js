@@ -4,7 +4,7 @@ const express = require("express");
 const session = require('express-session');
 const mongoose = require("mongoose");
 const connection = require("./config/database");
-const testRouter = require("./routes/test");
+const testRouter = require("./routes/main");
 const authMiddleware = require("./routes/auth");
 const crypto = require("crypto");
 const passport = require("passport");
@@ -57,6 +57,6 @@ app.listen(process.env.PORT, () => {
   console.log(`The server is listening on port ${process.env.PORT}`);
 });
 
-addCardToUserCollection("admin", "id");
+addCardToUserCollection("admin", "test");
 
 console.log("(DBG) Server started.");
