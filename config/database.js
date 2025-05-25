@@ -15,7 +15,11 @@ const UserSchema = new mongoose.Schema({
     salt: String,
     admin: Boolean, 
     packEnergy: { type: Number, default: 0, max: 5 },
-    lastEnergyRestore: { type: Date, default: null }
+    lastEnergyRestore: { type: Date, default: null },
+    cardsCollection: [{
+        card: { type: String, ref: 'Card' },
+        quantity: { type: Number, default: 1 }
+    }]
 });
 
 const User = connection.model('User', UserSchema);
@@ -51,7 +55,9 @@ const CardSchema = new mongoose.Schema({
         type: { type: String },
         value: String
     }
-    ]
+    ],
+    lowResImage: String,
+    highResImage: String
 })
 
 const Cards = connection.model('Card', CardSchema);

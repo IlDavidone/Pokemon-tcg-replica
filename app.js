@@ -9,6 +9,7 @@ const authMiddleware = require("./routes/auth");
 const crypto = require("crypto");
 const passport = require("passport");
 const startEnergyRestoreScheduler = require("./controllers/energyRestore");
+const addCardToUserCollection = require("./controllers/cardUtils").addCardToUserCollection;
 
 const MongoStore = require('connect-mongo')(session);
 
@@ -55,5 +56,7 @@ startEnergyRestoreScheduler();
 app.listen(process.env.PORT, () => {
   console.log(`The server is listening on port ${process.env.PORT}`);
 });
+
+addCardToUserCollection("admin", "id");
 
 console.log("(DBG) Server started.");
