@@ -166,7 +166,45 @@ router.post("/open-pack/base-set", isAuth, async(req, res, next) => {
   else {
     res.redirect("/open-pack");
   }
-})
+});
+
+router.get("/send-trade", isAuth, async (req, res, next) => {
+  res.render("sendTrade");
+});
+
+router.post("/send-trade", isAuth, async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  const targetUser = await User.findOne({ username: req.body.username });
+
+  const cardsGiven = Array.isArray(req.body.cardGiven)
+  ? req.body.cardGiven.map(cardId => ({ card: cardId }))
+  : [{ card: req.body.cardGiven }];
+
+  const cardsReceived = Array.isArray(req.body.cardReceived)
+  ? req.body.cardReceived.map(cardId => ({ card: cardId }))
+  : [{ card: req.body.cardReceived }];
+
+  const cardEntry = targetUser.cardsCollection.find(
+    entry => String(entry.card) === String(req.body.cardReceived)
+  );
+
+  if(cardEntry) {
+  targetUser.tradeRequests.push({ 
+    fromUser: user.username,
+    cardsGiven,
+    cardsReceived,
+    expirationDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+    acceptation: false
+  });
+
+  await targetUser.save();
+  res.redirect("/send-trade");
+  
+  }
+  else {
+    res.redirect("/home");
+  }
+});
 
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
