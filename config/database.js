@@ -31,6 +31,17 @@ const UserSchema = new mongoose.Schema({
         id: String,
         username: String,
         dateAdded: Date
+    }],
+    tradeRequests: [{
+        fromUser: String,
+        cardsGiven: [{
+            card: String
+        }],
+        cardsReceived: [{
+            card: String
+        }],
+        expirationDate: Date,
+        acceptation: { type: Boolean, default: false }
     }]
 });
 

@@ -9,6 +9,7 @@ const isNotAuth = require("./auth").isNotAuth;
 const isAdmin = require("./auth").isAdmin;
 const addCardToUserCollection =
   require("../controllers/cardUtils").addCardToUserCollection;
+const packOpening = require("../controllers/packsLogic").packOpening;
 
 require("dotenv").config();
 
@@ -147,6 +148,24 @@ router.post("/add-friends", isAuth, async (req, res, next) => {
     console.error(err);
   }
   res.render("addFriends");
+});
+
+router.get("/open-pack", isAuth, async (req, res, next) => {
+  res.render("packOpening");
+});
+
+router.post("/open-pack/base-set", isAuth, async(req, res, next) => {
+  const user = await User.findById(req.user._id);
+  if (user.packEnergy >= 1) {
+    const cards = await packOpening(req.user._id);
+    console.log(cards);
+    user.packEnergy -= 1;
+    await user.save();
+    res.redirect("/open-pack");
+  }
+  else {
+    res.redirect("/open-pack");
+  }
 })
 
 router.get("/logout", (req, res, next) => {
