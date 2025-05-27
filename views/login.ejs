@@ -1,9 +1,17 @@
-<h1>Login Page</h1>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/login.css">
+
 <form method="POST" action="/login">
-    <label for="username">Enter Username:</label>
-    <input type="text" id="username" name="username">
-    <label for="password">Enter Password:</label>
-    <input type="password" id="password" name="password">
-    <input type="checkbox" name="remember">
-    <input type="submit" value="Submit">
+    <h2>Login</h2>
+    <input type="text" class="username" name="username" placeholder="Username...">
+    <input type="password" class="password" name="password" placeholder="Password...">
+    <div class="wrapper">
+        <input type="checkbox" name="remember" id="cookie">
+        <label for="cookie">Keep logged in?</label>
+    </div>
+    <input type="submit" value="Sign In">
 </form>
+
+<p>Don't have an account? <a href="/register">Sign Up</a></p>

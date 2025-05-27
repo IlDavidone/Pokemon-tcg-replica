@@ -1,0 +1,93 @@
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 25vw;
+    height: 40vh;
+    margin: 20vh auto 20px auto;
+    gap: 10px;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 5px;
+    flex-wrap: wrap;
+}
+
+.wrapper {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.8rem;
+}
+
+input[type=checkbox] {
+    color: #1976D2;
+}
+
+input {
+    margin: 10px 0 10px 0;
+}
+
+input::placeholder {
+    color: rgb(211, 210, 210);
+}
+
+input:focus {
+  border-radius: 2px;
+}
+
+.username {
+    height: 3vh;
+    width: 15vw;
+    outline: 0;
+    border-width: 0 0 1px 0;
+}
+
+.password {
+    height: 3vh;
+    width: 15vw;
+    outline: 0;
+    border-width: 0 0 1px 0;
+}
+
+h2 {
+    font-family: "Roboto", sans-serif;
+    justify-self: center;
+}
+
+input[type=submit] {
+    height: 5vh;
+    width: 10vw;
+    font-size: 1.1rem;
+    font-family: "Noto Sans", sans-serif;
+    background-color: #1976D2;
+    color: white;
+    border: 0;
+    border-radius: 2px;
+    margin-top: 20px;
+}
+
+input[type=submit]:hover {
+    background-color: #1a7de0;
+}
+
+input[type=submit]:active {
+    background-color: #1564b3;
+}
+
+p {
+    font-family: "Noto Sans", sans-serif;
+    font-size: 0.9rem;
+    justify-self: center;
+}
+
+a {
+    text-decoration: none;
+    color: #1976D2;
+}
+
+a:hover {
+    color:#1a7de0;
+    text-decoration: solid;
+}
