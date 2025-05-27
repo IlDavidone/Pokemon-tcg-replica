@@ -1,0 +1,40 @@
+body {  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 25vw;
+    height: 40vh;
+    margin-bottom: 20vh;
+    gap: 10px;
+    border: 1px solid rgb(206, 206, 206);
+}
+
+input {
+    margin: 10px 0 10px 0;
+}
+
+input::placeholder {
+    color: rgb(211, 210, 210);
+}
+
+.username {
+    height: 3vh;
+    width: 15vw;
+}
+
+.password {
+    height: 3vh;
+    width: 15vw;
+}
+
+
+h2 {
+    font-family: "Roboto", sans-serif;
+}

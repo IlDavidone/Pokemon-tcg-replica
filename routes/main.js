@@ -22,8 +22,14 @@ router.post(
   passport.authenticate("local", {
     failureRedirect: "/login",
     successRedirect: "/home",
-  })
-);
+  }), (req, res) => {
+    if(req.body.remember) {
+      req.session.cookie.maxAge = 14 * 24 * 60 * 60 * 1000;
+    }
+    else {
+      req.session.cookie.expires = false;
+    }
+  });
 
 router.post("/register", async (req, res, next) => {
   try {
