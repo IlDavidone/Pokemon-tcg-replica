@@ -212,6 +212,10 @@ router.post("/send-trade", isAuth, async (req, res, next) => {
   }
 });
 
+router.get("/collection", isAuth, (req, res, next) => {
+  res.render("collection");
+})
+
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {

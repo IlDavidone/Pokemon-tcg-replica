@@ -1,1 +1,84 @@
-<p>yeah</p>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/footer.css">
+
+<% if (state == "home") { %>
+    <div class="footer-wrapper">
+        <div class="menu-button home"><img src="../assets/home-4-line-blue.svg" alt=""></div>
+        <div class="menu-button collection"><img src="../assets/cards.svg" alt=""></div>
+        <div class="menu-button friends"><img src="../assets/group-line.svg" alt=""></div>
+        <div class="menu-button achievements"><img src="../assets/award-line (1).svg" alt=""></div>
+        <div class="menu-button settings"><img src="../assets/settings-3-line.svg" alt=""></div>
+    </div>
+<% } %>
+
+<% if (state == "collection") { %>
+    <div class="footer-wrapper">
+        <div class="menu-button home"><img src="../assets/home-4-line.svg" alt=""></div>
+        <div class="menu-button collection"><img src="../assets/cards (1).svg" alt=""></div>
+        <div class="menu-button friends"><img src="../assets/group-line.svg" alt=""></div>
+        <div class="menu-button achievements"><img src="../assets/award-line (1).svg" alt=""></div>
+        <div class="menu-button settings"><img src="../assets/settings-3-line.svg" alt=""></div>
+    </div>
+<% } %>
+
+<% if (state == "friends") { %>
+    <div class="footer-wrapper">
+        <div class="menu-button home"><img src="../assets/home-4-line.svg" alt=""></div>
+        <div class="menu-button collection"><img src="../assets/cards.svg" alt=""></div>
+        <div class="menu-button friends"><img src="../assets/group-line (1).svg" alt=""></div>
+        <div class="menu-button achievements"><img src="../assets/award-line (1).svg" alt=""></div>
+        <div class="menu-button settings"><img src="../assets/settings-3-line.svg" alt=""></div>
+    </div>
+<% } %>
+
+<% if (state == "achievements") { %>
+    <div class="footer-wrapper">
+        <div class="menu-button home"><img src="../assets/home-4-line.svg" alt=""></div>
+        <div class="menu-button collection"><img src="../assets/cards.svg" alt=""></div>
+        <div class="menu-button friends"><img src="../assets/group-line.svg" alt=""></div>
+        <div class="menu-button achievements"><img src="../assets/award-line.svg" alt=""></div>
+        <div class="menu-button settings"><img src="../assets/settings-3-line.svg" alt=""></div>
+    </div>
+<% } %>
+
+<% if (state == "settings") { %>
+    <div class="footer-wrapper">
+        <div class="menu-button home"><img src="../assets/home-4-line.svg" alt=""></div>
+        <div class="menu-button collection"><img src="../assets/cards.svg" alt=""></div>
+        <div class="menu-button friends"><img src="../assets/group-line.svg" alt=""></div>
+        <div class="menu-button achievements"><img src="../assets/award-line (1).svg" alt=""></div>
+        <div class="menu-button settings"><img src="../assets/settings-3-line (1).svg" alt=""></div>
+    </div>
+<% } %>
+
+<script>
+    const homeButton = document.querySelector(".home");
+    const collectionButton = document.querySelector(".collection");
+    const friendsButton = document.querySelector(".friends");
+    const achievementsButton = document.querySelector(".achievements");
+    const settingsButton = document.querySelector(".settings");
+
+    homeButton.addEventListener("click", () => {
+        window.location.href = '/home';
+    });
+
+    collectionButton.addEventListener("click", () => {
+        window.location.href = '/collection';
+    });
+
+    friendsButton.addEventListener("click", () => {
+        window.location.href = '/friends';
+    });
+
+    achievementsButton.addEventListener("click", () => {
+        window.location.href = '/achievements';
+    });
+
+    settingsButton.addEventListener("click", () => {
+        window.location.href = '/settings';
+    });
+</script>
+
+

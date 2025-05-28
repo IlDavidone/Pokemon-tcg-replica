@@ -1,0 +1,61 @@
+body {
+    box-sizing: content-box;
+    font-family: "Roboto", sans-serif;
+}
+
+h1 {
+    font-weight: 500;
+}
+
+.header-wrapper {
+    border-bottom: 1px solid rgb(233, 233, 233);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.left-side {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-pic-wrapper {
+    border-radius: 50%;
+    margin: 15px 0 15px 15px;
+    height: 120px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logout {
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    align-self: flex-end;
+    margin-right: 20px;
+}
+
+.logout:hover {
+    background-color: rgb(247, 247, 247);
+}
+
+.logout:active {
+    background-color: rgb(235, 235, 235);
+}

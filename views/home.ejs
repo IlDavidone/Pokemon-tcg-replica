@@ -1,10 +1,23 @@
+<header>
+  <%- include("partials/header") %>
+</header>
+
 <p>Welcome back <strong><h1><%= username %></strong></h1></p>
 <form action="/logout" method="GET">
     <button type="submit">Logout</button>
 </form>
 
+<footer>
+  <%- include("partials/footer", {state: "home"}) %>
+</footer>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  // Only connect after login!
   var socket = io();
 </script>
+
+<style>
+  body {
+    margin: 0;
+  }
+</style>

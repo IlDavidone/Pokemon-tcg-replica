@@ -1,0 +1,21 @@
+img {
+    height: 40px;
+    width: 40px;
+}
+
+.footer-wrapper {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  color: white;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.menu-button {
+    padding: 10px 0 10px 0;
+    border-top: 1px solid rgb(226, 226, 226);
+}
