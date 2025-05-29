@@ -157,7 +157,9 @@ router.post("/add-friends", isAuth, async (req, res, next) => {
 });
 
 router.get("/open-pack", isAuth, async (req, res, next) => {
-  res.render("packOpening");
+  const user = await User.findById(req.user._id);
+  const cards = await Card.find({});
+  res.render("packOpening", {cards: cards, energy: user.packEnergy});
 });
 
 router.post("/open-pack/base-set", isAuth, async(req, res, next) => {

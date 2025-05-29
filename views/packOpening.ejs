@@ -1,5 +1,51 @@
-<form action="/open-pack/base-set" method="POST">
-    <h1>Base Set Pack</h1> <p>Until: undefined</p>
-    <input type="hidden" value="open">
-    <input type="submit">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/packs.css">
+
+
+<form class="pack-form" action="/open-pack/base-set" method="POST" id="pack-form">
+    <div class="pack-description">
+        <h1>Base Set Pack</h1> <p>Until: undefined</p>
+        <input type="hidden" value="open">
+    </div>
+
+    <div class="cards-slider">
+        <div class="cards-track">
+            <% for(let i = 0; i < cards.length; i++) { %>
+                <img src="<%- cards[i].highResImage %>">
+            <% } %>
+        </div>
+</div>
+    <button class="open-button" type="submit" form="pack-form">Open (-1 <img class="energy-icon" src="/assets/energy.svg">)</button>
 </form>
+
+<p class="energy-info">Remaining Energy:</p>
+<div class="energy-wrapper">
+    <% for(let l = 0; l < energy; l++) { %>
+        <img class="energy-svg" src="/assets/energy.svg" alt="">
+    <% } %>
+</div>
+
+<footer>
+    <%- include("partials/footer", {state: "home"}) %>
+</footer>
+
+<script>
+    const slider = document.querySelector(".cards-slider");
+    const track = document.querySelector(".cards-track");
+    const cards = Array.from(track.children);
+
+    cards.forEach((logo) => {
+    const clone = logo.cloneNode(true);
+    track.appendChild(clone);
+    });
+
+    slider.addEventListener("mouseover", () => {
+    track.style.animationPlayState = "paused";
+    });
+
+    slider.addEventListener("mouseout", () => {
+    track.style.animationPlayState = "running";
+    });
+</script>
