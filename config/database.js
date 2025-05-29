@@ -55,6 +55,7 @@ const CardSchema = new mongoose.Schema({
     types: [String],
     evolvesFrom: String,
     evolvesTo: [String],
+    rules: [String],
     abilities: [{
         name: String,
         text: String,

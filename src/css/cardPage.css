@@ -1,3 +1,18 @@
+@keyframes rare-holo-animation{
+ 0%{color: orange;}
+ 10%{color: purple;}
+ 20%{color: red;}
+ 30%{color: CadetBlue;}
+ 40%{color: yellow;}
+ 50%{color: coral;}
+ 60%{color: green;}
+ 70%{color: cyan;}
+ 80%{color: DeepPink;}
+ 90%{color: DodgerBlue;}
+ 100%{color: orange;}
+}
+
+
 body {
     font-family: "Roboto", sans-serif;
     display: flex;
@@ -26,13 +41,23 @@ p {
 .left-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+}
+
+.card-hp {
+    display: flex;
+    gap: 5px;
+}
+
+.card-left-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .selected-card {
     z-index: 1;
-    margin: auto;
     height: 500px;
     width: 375px;
     border-radius: 10px;
@@ -46,6 +71,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 30%;
 }
 
 .card-type {
@@ -54,7 +80,42 @@ p {
     align-content: center;
 }
 
+.card-info {
+    display: flex;
+    margin-left: 30px;
+    margin-top: 20px;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
 .card-type-img {
     height: 30px;
     width: 30px;
+}
+
+.attacks-energy {
+    height: 20px;
+    width: 20px;
+}
+
+.card-single-attack {
+    margin-bottom: 20px;
+}
+
+.rare-holo {
+    animation-name: rare-holo-animation;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+.rare {
+    color:rgb(255, 97, 97);
+}
+
+.uncommon {
+    color: rgb(131, 187, 47);
+}
+
+.common {
+    color: rgb(180, 180, 180)
 }

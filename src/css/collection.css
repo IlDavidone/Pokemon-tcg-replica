@@ -5,7 +5,7 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-evenly;
-    margin: 0 20px 80px 20px;
+    margin: 20px 20px 80px 20px;
     z-index: 2;
 }
 
@@ -17,19 +17,13 @@
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
+    scale: 1;
+    transition-duration: 0.3s;
 }
 
-.selected-card-wrapper {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: auto;
-}
-
-.selected-card {
-    z-index: 1;
-    margin: auto;
-    height: 500px;
-    width: 375px;
+.cards-images:hover {
+    scale: 1.05;
+    transition-duration: 0.3s;
 }
 
 .blurred {

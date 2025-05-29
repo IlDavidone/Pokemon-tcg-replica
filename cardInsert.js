@@ -18,11 +18,14 @@ async function importBaseSet() {
             types: card.types || [],
             evolvesFrom: card.evolvesFrom,
             evolvesTo: card.evolvesTo || [],
-            abilites: Array.isArray(card.abilities) ? card.abilities.map(c => ( {
-                name: c.name,
-                text: c.text,
-                type: c.type
-            } )) : [],
+            rules: card.rules || [],
+            abilites: Array.isArray(card.abilities)
+                ? card.abilities.map(c => ({
+                    name: c.name,
+                    text: c.text,
+                    type: c.type
+                }))
+                : [],
             attacks: Array.isArray(card.attacks) ? card.attacks.map(a => ({ 
                 cost: a.cost,
                 name: a.name,

@@ -5,25 +5,79 @@
 
 <div class="selected-card-wrapper">
     <div class="left-section">
-        <img class="selected-card" src="<%= card.highResImage %>" alt="">
-        <h2><%- card.rarity %></h2>
+        <div class="card-left-wrapper">
+            <img class="selected-card" src="<%= card.highResImage %>" alt="">
+            <h2 class="card-rarity"><%- card.rarity %></h2>
+        </div>
     </div>
     <div class="right-section">
         <div class="card-name-header">
             <h1><%- card.name %><h1>
         </div>
         <h3>Owned: <%- selectedCardQty.quantity %></h3>
-        <div class="card-info">
-            <div class="card-type">
-                <% for(let i = 0; i < card.types.length; i++) { %>
-                    <img class="card-type-img" src="/assets/energies/<%= card.types[i] %>.svg">
-                <% } %>
-            </div>
-            <div class="card-hp">
-                <% if(card.hp) { %>
-                    <p>Hp: <%- card.hp %></p>
-                <% } %>
-            </div>
+        <div class="card-type">
+            <% for(let i = 0; i < card.types.length; i++) { %>
+                <img class="card-type-img" src="/assets/energies/<%= card.types[i] %>.svg">
+            <% } %>
         </div>
+        <% if(card.supertype == "Pokémon") {%>
+            <div class="card-info">
+                <div class="card-hp">
+                    <% if(card.hp) { %>
+                        <h3>Hp: <h3 style="color: rgb(252, 97, 97)"><%- card.hp %></h3></h3>
+                    <% } %>
+                </div>
+                <div class="card-attacks"> 
+                    <% for(let l = 0; l < card.attacks.length; l++) { %>
+                        <div class="attack<%- l %> card-single-attack">
+                        <h3><%- card.attacks[l].name %>:</h3>
+                        <% for(let j = 0; j < card.attacks[l].cost.length; j++) { %>  
+                            <img class="attacks-energy" src="/assets/energies/<%= card.attacks[l].cost[j].toLowerCase() %>.svg">
+                        <% } %>
+                        <% if(card.attacks[l].text) { %>
+                            <p class="card-description"><%- card.attacks[l].text %></p>
+                        <% } %>
+                        <% if(card.attacks[l].text == "") { %> 
+                            <p class="card-description">Simple attack - no description.</p>
+                        <% } %>
+                        </div>
+                    <% } %>
+                </div>
+                <% if(card.weaknesses.length > 0) { %>
+                    <div class="card-weaknesses">
+                        <h3>Weakness:</h3>
+                        <img class="attacks-energy" src="/assets/energies/<%= card.weaknesses[0].type.toLowerCase() %>.svg">
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
+        <% if(card.supertype == "Trainer") { %>
+            <div class="card-info">
+                <h3>Details: </h3>
+                <p><%- card.rules[0] %></p>
+            </div>
+        <% } %>
     </div>
 </div>
+
+<footer>
+    <%- include("partials/footer", {state: "collection"}) %>
+</footer>
+
+<script>
+    const rarity = "<%- card.rarity %>";
+    const rarityParagraph = document.querySelector(".card-rarity");
+
+    if(rarity == "Rare Holo") {
+        rarityParagraph.classList.toggle("rare-holo");
+    }
+    else if(rarity == "Rare") {
+        rarityParagraph.classList.toggle("rare");
+    }
+    else if(rarity == "Uncommon") {
+        rarityParagraph.classList.toggle("uncommon");
+    }
+    else if(rarity == "Common") {
+        rarityParagraph.classList.toggle("common");
+    }
+</script>
