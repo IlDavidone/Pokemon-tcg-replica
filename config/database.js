@@ -81,7 +81,8 @@ const CardSchema = new mongoose.Schema({
     ],
     rarity: String,
     lowResImage: String,
-    highResImage: String
+    highResImage: String,
+    artist: String
 })
 
 const Cards = connection.model('Card', CardSchema);

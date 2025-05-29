@@ -26,7 +26,7 @@ async function packOpening(userId) {
   const selectedCards = [];
   const usedCards = new Set();
 
-  for(let i = 0; i < 3; i++) {
+  for(let i = 0; i < 4; i++) {
     let rarity = pickRarity();
     let uniqueCard = await Card.find({ rarity, id: { $nin: Array.from(usedCards) }});
     if(uniqueCard.length == 0) {

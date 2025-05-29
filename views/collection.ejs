@@ -1,5 +1,28 @@
-<h1>Mhanz</h1>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/collection.css">
+
+<h1>Collection</h1>
+
+<div class="collection-wrapper blurred">
+    <% for(let i = 0; i < cards.length; i++) { %>
+        <img class="cards-images" src="<%- cards[i].highResImage %>"
+        data-card-id="<%- cards[i].id %>">
+    <% } %>
+</div>
 
 <footer>
     <%- include("partials/footer", {state: "collection"}) %>
 </footer>
+
+<script>
+    const cards = document.querySelectorAll(".cards-images")
+    .forEach(function(img)  {
+        img.addEventListener("click", function()  {
+            const cardId = this.getAttribute("data-card-id");
+            console.log(cardId);
+        });
+    });
+
+</script>

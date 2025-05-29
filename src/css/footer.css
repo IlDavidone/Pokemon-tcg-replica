@@ -5,7 +5,6 @@ img {
 
 .footer-wrapper {
   position: fixed;
-  left: 0;
   bottom: 0;
   width: 100%;
   background-color: rgb(255, 255, 255);
@@ -13,9 +12,10 @@ img {
   text-align: center;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  margin-top: 50px;
 }
 
 .menu-button {
     padding: 10px 0 10px 0;
-    border-top: 1px solid rgb(226, 226, 226);
+    border-top: 1px solid rgb(233, 233, 233);
 }

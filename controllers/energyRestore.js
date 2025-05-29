@@ -7,7 +7,7 @@ function startEnergyRestoreScheduler() {
     cron.schedule('* * * * *', async () => {
         const users = await User.find({});
         const now = new Date();
-        const cooldown = 6 * 60 * 60 * 1000; // 12 h
+        const cooldown = 4 * 60 * 60 * 1000; // 12 h
 
         for (const user of users) {
             if (!user.lastEnergyRestore) {

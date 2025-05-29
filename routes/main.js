@@ -212,8 +212,21 @@ router.post("/send-trade", isAuth, async (req, res, next) => {
   }
 });
 
-router.get("/collection", isAuth, (req, res, next) => {
-  res.render("collection");
+router.get("/collection", isAuth, async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  const collectionArr = user.cardsCollection;
+
+  const cardsInfo = await Promise.all(
+    collectionArr.map(async (element) => {
+      return await Card.findOne({ id: element.card });
+    })
+  );
+
+  const cardArr = cardsInfo.filter(Boolean);
+
+  console.log(cardsInfo);
+
+  res.render("collection", {cards: cardArr});
 })
 
 router.get("/logout", (req, res, next) => {

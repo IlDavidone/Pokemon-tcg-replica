@@ -1,11 +1,37 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/home.css">
+
 <header>
   <%- include("partials/header") %>
 </header>
 
-<p>Welcome back <strong><h1><%= username %></strong></h1></p>
-<form action="/logout" method="GET">
-    <button type="submit">Logout</button>
-</form>
+<div class="wrapper">
+  <div class="left-part">
+    <div class="packs-section">
+      <div class="pack-writing-wrapper">
+        <h1 class="pack-header">Packs</h1>
+        <p class="pack-paragraph">Catch 'em all!</p>
+      </div>
+      <a href="/open-pack"><img src="./assets/Baseset3-pack.png" class="pack-image"></a>
+    </div>
+  </div>
+  <div class="right-part">
+    <div class="wonder-pick">
+      <div class="wonder-pick-wrapper">
+        <h1 class="wonder-pick-header">Wonder Pick</h1>
+        <p class="wonder-pick-paragraph">To be done...</p>
+      </div>
+    </div>
+    <div class="shop-section">
+      <div class="shop-section-wrapper">
+        <h1 class="shop-section-header">Shop</h1>
+        <p class="shop-section-paragraph">To be done...</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   <%- include("partials/footer", {state: "home"}) %>

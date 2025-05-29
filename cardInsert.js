@@ -40,7 +40,8 @@ async function importBaseSet() {
              })) : [],
             rarity: card.rarity,
             lowResImage: card.images.small,
-            highResImage: card.images.large
+            highResImage: card.images.large,
+            artist: card.artist
         } ));
 
         await Card.insertMany(mappedCards);
