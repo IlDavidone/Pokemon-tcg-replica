@@ -224,9 +224,19 @@ router.get("/collection", isAuth, async (req, res, next) => {
 
   const cardArr = cardsInfo.filter(Boolean);
 
-  console.log(cardsInfo);
-
   res.render("collection", {cards: cardArr});
+});
+
+router.get("/collection/:cardId", isAuth, async (req, res, next) => {
+  const reqCardId = req.params.cardId;
+  const selectedCard = await Card.findOne({id: reqCardId});
+  const user = await User.findById(req.user._id);
+  const collectionArr = user.cardsCollection;
+
+  const selectedCardQuantity = await collectionArr.find((entry) => entry.card == reqCardId);
+  console.log(selectedCardQuantity.quantity);
+
+  res.render("cardPage", {card: selectedCard, selectedCardQty: selectedCardQuantity});
 })
 
 router.get("/logout", (req, res, next) => {

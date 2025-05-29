@@ -1,0 +1,29 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/cardPage.css">
+
+<div class="selected-card-wrapper">
+    <div class="left-section">
+        <img class="selected-card" src="<%= card.highResImage %>" alt="">
+        <h2><%- card.rarity %></h2>
+    </div>
+    <div class="right-section">
+        <div class="card-name-header">
+            <h1><%- card.name %><h1>
+        </div>
+        <h3>Owned: <%- selectedCardQty.quantity %></h3>
+        <div class="card-info">
+            <div class="card-type">
+                <% for(let i = 0; i < card.types.length; i++) { %>
+                    <img class="card-type-img" src="/assets/energies/<%= card.types[i] %>.svg">
+                <% } %>
+            </div>
+            <div class="card-hp">
+                <% if(card.hp) { %>
+                    <p>Hp: <%- card.hp %></p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>

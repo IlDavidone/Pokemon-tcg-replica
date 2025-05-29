@@ -5,7 +5,7 @@
 
 <h1>Collection</h1>
 
-<div class="collection-wrapper blurred">
+<div class="collection-wrapper">
     <% for(let i = 0; i < cards.length; i++) { %>
         <img class="cards-images" src="<%- cards[i].highResImage %>"
         data-card-id="<%- cards[i].id %>">
@@ -17,11 +17,12 @@
 </footer>
 
 <script>
+    const body = document.querySelector("body");
     const cards = document.querySelectorAll(".cards-images")
     .forEach(function(img)  {
         img.addEventListener("click", function()  {
             const cardId = this.getAttribute("data-card-id");
-            console.log(cardId);
+            window.location.replace(`/collection/${cardId}`);
         });
     });
 
