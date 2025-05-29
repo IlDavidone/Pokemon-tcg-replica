@@ -90,6 +90,12 @@ router.get("/admin", isAdmin, (req, res, next) => {
   res.render("admin");
 });
 
+router.get("/friends", isAuth, async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  const friendList = await user.friendsList;
+  res.render("friends", {friends: friendList});
+})
+
 router.get("/friend-requests", isAuth, async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);

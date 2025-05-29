@@ -1,0 +1,24 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/friendsList.css">
+
+<div class="general-wrapper">
+<% for(let i = 0; i < friends.length; i++) { %>
+    <div class="friends-wrapper">
+        <div class="left-panel">
+            <img class="friend-pic" src="/assets/2.svg">
+            <h2 class="friend-name"><%- friends[i].username %></h2>
+        </div>
+        <div class="right-panel">
+            <button><img src="./assets/user-minus-line.svg"></button>
+            <button>favorite</button>
+            <button>trade</button>
+        </div>
+    </div>
+<% } %>
+</div>
+
+<footer>
+    <%- include("partials/footer", {state: "friends"}) %>
+</footer>

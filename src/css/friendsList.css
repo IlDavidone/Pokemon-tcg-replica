@@ -1,0 +1,37 @@
+.general-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.friends-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 20px 50px 20px 30px;
+}
+
+.left-panel {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+.friend-pic {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    border: 1px solid rgb(206, 206, 206);
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+}
