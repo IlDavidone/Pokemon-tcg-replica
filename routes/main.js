@@ -169,7 +169,7 @@ router.post("/open-pack/base-set", isAuth, async(req, res, next) => {
     console.log(cards);
     user.packEnergy -= 1;
     await user.save();
-    res.redirect("/open-pack");
+    res.render("packContent", {cards: cards});
   }
   else {
     res.redirect("/open-pack");

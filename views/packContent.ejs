@@ -1,0 +1,26 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/packs.css">
+
+<div class="pack-cards-wrapper">
+    <% for(let i = 0; i < cards.length; i++) { %>
+        <div class="opened-card-wrapper">
+            <img class="opened-card-img" src="<%- cards[i].highResImage %>">
+            <% if(cards[i].rarity == "Common") { %>
+                <p class="opened-card-rarity common"><%- cards[i].rarity %></p>
+            <% } %>
+            <% if(cards[i].rarity == "Uncommon") { %>
+                <p class="opened-card-rarity uncommon"><%- cards[i].rarity %></p>
+            <% } %>
+            <% if(cards[i].rarity == "Rare") { %>
+                <p class="opened-card-rarity rare"><%- cards[i].rarity %></p>
+            <% } %>
+            <% if(cards[i].rarity == "Rare Holo") { %>
+                <p class="opened-card-rarity rare-holo"><%- cards[i].rarity %></p>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+
+<button class="redirect-pack-button" onclick="window.location='/open-pack'">Got it!</button>

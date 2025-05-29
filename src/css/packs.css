@@ -124,3 +124,88 @@ form {
     font-family: "Roboto", sans-serif;
     margin-top: 5vh;
 }
+
+.opened-card-img {
+    height: 300px;
+    width: 225px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.pack-cards-wrapper {
+    margin-top: 15vh;
+    display: flex;
+    gap: 5vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.opened-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.opened-card-rarity {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.2rem;
+}
+
+@keyframes rare-holo-animation{
+ 0%{color: orange;}
+ 10%{color: purple;}
+ 20%{color: red;}
+ 30%{color: CadetBlue;}
+ 40%{color: yellow;}
+ 50%{color: coral;}
+ 60%{color: green;}
+ 70%{color: cyan;}
+ 80%{color: DeepPink;}
+ 90%{color: DodgerBlue;}
+ 100%{color: orange;}
+}
+
+.rare-holo {
+    animation-name: rare-holo-animation;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+.rare {
+    color:rgb(255, 97, 97);
+}
+
+.uncommon {
+    color: rgb(131, 187, 47);
+}
+
+.common {
+    color: rgb(180, 180, 180)
+}
+
+.redirect-pack-button {
+    margin-top: 5vh;
+    height: 7vh;
+    width: 12vw;
+    background-color: #1976D2;
+    font-family: "Roboto", sans-serif;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.redirect-pack-button:hover {
+    background-color: #1a7de0;
+}
+
+.redirect-pack-button:active {
+    background-color: #1564b3;
+}

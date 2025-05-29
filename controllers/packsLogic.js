@@ -4,9 +4,9 @@ const User = connection.models.User;
 const Card = connection.models.Card;
 
 const rarityChances = [
-  { rarity: "Rare Holo", chance: 1 },
-  { rarity: "Rare", chance: 9 },
-  { rarity: "Uncommon", chance: 30 },
+  { rarity: "Rare Holo", chance: 3 },
+  { rarity: "Rare", chance: 8 },
+  { rarity: "Uncommon", chance: 29 },
   { rarity: "Common", chance: 60 }
 ];
 
