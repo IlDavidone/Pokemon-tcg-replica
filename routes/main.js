@@ -23,7 +23,7 @@ router.post(
     failureRedirect: "/login",
     successRedirect: "/home",
   }), (req, res) => {
-    if(req.body.remember) {
+    if (req.body.remember) {
       req.session.cookie.maxAge = 14 * 24 * 60 * 60 * 1000;
     }
     else {
@@ -93,8 +93,28 @@ router.get("/admin", isAdmin, (req, res, next) => {
 router.get("/friends", isAuth, async (req, res, next) => {
   const user = await User.findById(req.user._id);
   const friendList = await user.friendsList;
-  res.render("friends", {friends: friendList});
-})
+  res.render("friends", { friends: friendList });
+});
+
+router.get("/remove-friend/:userId", isAuth, async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  const targetFriend = await User.findById(req.params.userId);
+
+  for(let i = 0; i < targetFriend.friendsList.length; i++) {
+    if(targetFriend.friendsList[i].id == req.user._id) {
+      delete targetFriend.friendsList[i];
+      await targetFriend.save();
+    }
+  }
+  for(let l = 0; l < user.friendsList.length; l++) {
+    if(user.friendsList[l].id == req.params.userId) {
+      delete user.friendsList[l];
+      await user.save();
+    }
+  }
+
+  res.redirect("/friends");
+});
 
 router.get("/friend-requests", isAuth, async (req, res, next) => {
   try {
@@ -147,35 +167,60 @@ router.post("/add-friends", isAuth, async (req, res, next) => {
   try {
     const targetFriend = await User.findOne({ username: req.body.username });
     const user = await User.findById(req.user._id);
-    
-    targetFriend.friendRequests.push({
-      id: user._id,
-      username: user.username,
-      dateAdded: new Date()
-    });
-    
-    await targetFriend.save();
+
+    const targetFriendRequests = targetFriend.friendRequests;
+    const length = targetFriendRequests.length;
+
+    let l;
+
+    function checkExisting(req, targetFriendRequests, length) {
+      for (let i = 0; i < length; i++) {
+        if (targetFriendRequests[i].id == req.user._id) {
+          l = 1;
+        }
+        else {
+          l = 0;
+        }
+      }
+      return l;
+    }
+
+    const isExisting = checkExisting();
+
+    if (isExisting == true) {
+      targetFriend.friendRequests.push({
+        id: user._id,
+        username: user.username,
+        dateAdded: new Date()
+      });
+
+      await targetFriend.save();
+
+      res.redirect("/add-friends");
+    }
+    else {
+      res.redirect("/add-friends");
+    }
   }
   catch (err) {
     console.error(err);
   }
-  res.render("addFriends");
 });
 
 router.get("/open-pack", isAuth, async (req, res, next) => {
   const user = await User.findById(req.user._id);
   const cards = await Card.find({});
-  res.render("packOpening", {cards: cards, energy: user.packEnergy});
+  res.render("packOpening", { cards: cards, energy: user.packEnergy });
 });
 
-router.post("/open-pack/base-set", isAuth, async(req, res, next) => {
+router.post("/open-pack/base-set", isAuth, async (req, res, next) => {
   const user = await User.findById(req.user._id);
   if (user.packEnergy >= 1) {
     const cards = await packOpening(req.user._id);
     console.log(cards);
     user.packEnergy -= 1;
     await user.save();
-    res.render("packContent", {cards: cards});
+    res.render("packContent", { cards: cards });
   }
   else {
     res.redirect("/open-pack");
@@ -191,29 +236,29 @@ router.post("/send-trade", isAuth, async (req, res, next) => {
   const targetUser = await User.findOne({ username: req.body.username });
 
   const cardsGiven = Array.isArray(req.body.cardGiven)
-  ? req.body.cardGiven.map(cardId => ({ card: cardId }))
-  : [{ card: req.body.cardGiven }];
+    ? req.body.cardGiven.map(cardId => ({ card: cardId }))
+    : [{ card: req.body.cardGiven }];
 
   const cardsReceived = Array.isArray(req.body.cardReceived)
-  ? req.body.cardReceived.map(cardId => ({ card: cardId }))
-  : [{ card: req.body.cardReceived }];
+    ? req.body.cardReceived.map(cardId => ({ card: cardId }))
+    : [{ card: req.body.cardReceived }];
 
   const cardEntry = targetUser.cardsCollection.find(
     entry => String(entry.card) === String(req.body.cardReceived)
   );
 
-  if(cardEntry) {
-  targetUser.tradeRequests.push({ 
-    fromUser: user.username,
-    cardsGiven,
-    cardsReceived,
-    expirationDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-    acceptation: false
-  });
+  if (cardEntry) {
+    targetUser.tradeRequests.push({
+      fromUser: user.username,
+      cardsGiven,
+      cardsReceived,
+      expirationDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+      acceptation: false
+    });
 
-  await targetUser.save();
-  res.redirect("/send-trade");
-  
+    await targetUser.save();
+    res.redirect("/send-trade");
+
   }
   else {
     res.redirect("/home");
@@ -232,20 +277,20 @@ router.get("/collection", isAuth, async (req, res, next) => {
 
   const cardArr = cardsInfo.filter(Boolean);
 
-  res.render("collection", {cards: cardArr});
+  res.render("collection", { cards: cardArr });
 });
 
 router.get("/collection/:cardId", isAuth, async (req, res, next) => {
   const reqCardId = req.params.cardId;
-  const selectedCard = await Card.findOne({id: reqCardId});
+  const selectedCard = await Card.findOne({ id: reqCardId });
   const user = await User.findById(req.user._id);
   const collectionArr = user.cardsCollection;
 
   const selectedCardQuantity = await collectionArr.find((entry) => entry.card == reqCardId);
   console.log(selectedCardQuantity.quantity);
 
-  res.render("cardPage", {card: selectedCard, selectedCardQty: selectedCardQuantity});
-})
+  res.render("cardPage", { card: selectedCard, selectedCardQty: selectedCardQuantity });
+});
 
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {

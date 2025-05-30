@@ -11,9 +11,9 @@
             <h2 class="friend-name"><%- friends[i].username %></h2>
         </div>
         <div class="right-panel">
-            <button><img src="./assets/user-minus-line.svg"></button>
-            <button>favorite</button>
-            <button>trade</button>
+            <a href="/remove-friend/<%- friends[i].id %>"><button class="friend-list-button"><img src="./assets/user-minus-line.svg"></button></a>
+            <button class="friend-list-button"><img src="./assets/star-line.svg" alt=""></button>
+            <button class="friend-list-button"><img src="./assets/trade.svg" alt=""></button>
         </div>
     </div>
 <% } %>

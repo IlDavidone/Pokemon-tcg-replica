@@ -35,3 +35,27 @@
     align-items: center;
     gap: 10px;
 }
+
+.friend-list-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.friend-list-button:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.friend-list-button:active {
+    background-color: rgb(235, 235, 235);
+}
