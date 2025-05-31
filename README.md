@@ -27,7 +27,7 @@ This project is my vision on the Pokémon tcg pocket / og game, where you can co
 ## Building
 
 Clone this repository by running: 
-`https://github.com/IlDavidone/Pokemon-tcg-replica.git`
+`git clone https://github.com/IlDavidone/Pokemon-tcg-replica.git`
 
 Navigate and go in the cloned directory and then run: 
 `npm i` or `npm install`
