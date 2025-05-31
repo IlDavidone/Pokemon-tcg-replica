@@ -42,4 +42,4 @@ SECRET = Preferably a random generated string, can be any string anyway
 Run this command to build card voices in your database (Important and not to skip):
 `node .\cardInsert.js`
 
-Finally run this to see your website working in [This link](https://localhost:3000/home).
+Finally run this to see your website working in [This link](https://localhost:3000/home): `node .\app.js`
