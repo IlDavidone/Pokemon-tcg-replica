@@ -143,19 +143,38 @@ input[type="text"] {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 7px;
 }
 
 .accept-button {
     font-weight: 700;
     height: 3vh;
-    width: 7vw;
+    width: 5vw;
     font-family: "Roboto", sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: #1976D2;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    justify-self: center;
+}
+
+.accepted-button {
+    font-weight: 700;
+    height: 3vh;
+    width: 5vw;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #afafaf;
     color: rgb(255, 255, 255);
     border-radius: 10px;
     -webkit-border-radius: 10px;

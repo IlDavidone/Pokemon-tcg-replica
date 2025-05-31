@@ -23,8 +23,15 @@
                 <button class="accept-button" type="submit">Accept</button>
             </form>
             <% } else { %>
-                <span>Accepted</span>
+                <button class="accepted-button" disabled>Accepted</button>
                 <% } %>
                 </div>
                     <% }) %>
 </div>
+
+<footer><%- include("partials/footer", {state: "friends"}) %></footer>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+</script>
