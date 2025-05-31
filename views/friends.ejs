@@ -3,6 +3,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/friendsList.css">
 
+<header>
+    <div class="generic-wrapper">
+        <form method="POST" action="add-friends">
+            <input type="text" name="username" placeholder="Add a friend...">
+            <button class="friend-add-button" type="submit"><img class="friend-add-image" src="./assets/user-add-line.svg" alt=""></button>
+        </form>
+
+        <div class="requests-wrapper">
+                <button class="friend-add-button"><a href="/friend-requests"><img class="friend-add-image" src="./assets/mail-line.svg" alt=""></a></button>
+        </div>
+    </div>
+</header>
+
 <div class="general-wrapper">
 <% for(let i = 0; i < friends.length; i++) { %>
     <div class="friends-wrapper">

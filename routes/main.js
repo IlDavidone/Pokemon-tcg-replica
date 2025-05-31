@@ -100,18 +100,15 @@ router.get("/remove-friend/:userId", isAuth, async (req, res, next) => {
   const user = await User.findById(req.user._id);
   const targetFriend = await User.findById(req.params.userId);
 
-  for(let i = 0; i < targetFriend.friendsList.length; i++) {
-    if(targetFriend.friendsList[i].id == req.user._id) {
-      delete targetFriend.friendsList[i];
-      await targetFriend.save();
-    }
-  }
-  for(let l = 0; l < user.friendsList.length; l++) {
-    if(user.friendsList[l].id == req.params.userId) {
-      delete user.friendsList[l];
-      await user.save();
-    }
-  }
+  targetFriend.friendsList = targetFriend.friendsList.filter(
+    friend => String(friend.id) !== String(req.user._id)
+  );
+  await targetFriend.save();
+
+  user.friendsList = user.friendsList.filter(
+    friend => String(friend.id) !== String(req.params.userId)
+  );
+  await user.save();
 
   res.redirect("/friends");
 });
@@ -159,51 +156,36 @@ router.post("/friend-requests/accept", isAuth, async (req, res, next) => {
   }
 });
 
-router.get("/add-friends", isAuth, async (req, res, next) => {
-  res.render("addFriends");
-});
-
 router.post("/add-friends", isAuth, async (req, res, next) => {
   try {
     const targetFriend = await User.findOne({ username: req.body.username });
     const user = await User.findById(req.user._id);
 
-    const targetFriendRequests = targetFriend.friendRequests;
-    const length = targetFriendRequests.length;
-
-    let l;
-
-    function checkExisting(req, targetFriendRequests, length) {
-      for (let i = 0; i < length; i++) {
-        if (targetFriendRequests[i].id == req.user._id) {
-          l = 1;
-        }
-        else {
-          l = 0;
-        }
-      }
-      return l;
+    if (!targetFriend) {
+      return res.redirect("/friends");
     }
 
-    const isExisting = checkExisting();
+    const alreadyRequested = targetFriend.friendRequests.some(
+      reqObj => String(reqObj.id) === String(user._id)
+    );
 
-    if (isExisting == true) {
+    const alreadyFriends = targetFriend.friendsList.some(
+      friend => String(friend.id) === String(user._id)
+    );
+
+    if (!alreadyRequested && !alreadyFriends) {
       targetFriend.friendRequests.push({
         id: user._id,
         username: user.username,
         dateAdded: new Date()
       });
-
       await targetFriend.save();
+    }
 
-      res.redirect("/add-friends");
-    }
-    else {
-      res.redirect("/add-friends");
-    }
-  }
-  catch (err) {
+    res.redirect("/friends");
+  } catch (err) {
     console.error(err);
+    res.redirect("/friends");
   }
 });
 

@@ -1,16 +1,30 @@
-<ul>
-    <% requests.forEach((req) => { %>
-        <li>
-            <h2><%= req.username %> has sent you a friend request!</h2>
-            <p><%= req.date %></p>
-            <% if (!req.acceptation) { %>
-                <form action="/friend-requests/accept" method="POST" style="display:inline;">
-                    <input type="hidden" name="requestId" value="<%= req._id %>">
-                    <button type="submit">Accept</button>
-                </form>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="/css/friendsList.css">
+
+<div class="main-wrapper">
+    <% requests.forEach((req)=> { %>
+        <div class="requests-wrapper">
+        <div class="request-paragraph-wrapper">
+            <h2>
+                <%= req.username %>
+            </h2>
+            <p>has sent you a friend request!</p>
+        </div>
+        <p>
+            <%= req.date %>
+        </p>
+        <% if (!req.acceptation) { %>
+            <form action="/friend-requests/accept" method="POST" style="display:inline;">
+                <input type="hidden" name="requestId" value="<%= req._id %>">
+                <button class="accept-button" type="submit">Accept</button>
+            </form>
             <% } else { %>
                 <span>Accepted</span>
-            <% } %>
-        </li>
-    <% }) %>
-</ul>
+                <% } %>
+                </div>
+                    <% }) %>
+</div>
