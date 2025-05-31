@@ -26,7 +26,7 @@
         <div class="right-panel">
             <a href="/remove-friend/<%- friends[i].id %>"><button class="friend-list-button"><img src="./assets/user-minus-line.svg"></button></a>
             <button class="friend-list-button"><img src="./assets/star-line.svg" alt=""></button>
-            <button class="friend-list-button"><img src="./assets/trade.svg" alt=""></button>
+            <a href="/send-trade/<%- friends[i].id %>"><button class="friend-list-button"><img src="./assets/trade.svg" alt=""></button>
         </div>
     </div>
 <% } %>

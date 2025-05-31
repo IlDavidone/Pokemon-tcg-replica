@@ -1,0 +1,38 @@
+h1 {
+    justify-self: center;
+    align-self: center;
+}
+
+.general-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.left-trade-side, .right-trade-side {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.cards-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cards {
+    height: 300px;
+    width: 225px;
+}
+
+.selected-card {
+  border: 3px solid #2196f3;
+  box-shadow: 0 0 10px #2196f3;
+}
+
+#submit-trade {
+    margin-bottom: 60px;
+}

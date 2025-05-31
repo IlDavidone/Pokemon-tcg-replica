@@ -1,11 +1,56 @@
-<form action="/send-trade" method="POST">
-    <input type="text" name="username" placeholder="Username desired...">
-    <input type="text" name="cardGiven" placeholder="Give...">
-    <input type="text" name="cardReceived" placeholder="Receive...">
-    <input type="submit">
-</form>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/trade.css">
+
+<div class="general-wrapper">
+  <div class="left-trade-side">
+    <h1>Giving:</h1>
+    <div class="cards-wrapper">
+    <% for(let i = 0; i < userCardsInfo.length; i++) { %> <% if (userCardsInfo[i])
+    { %>
+<img class="cards selectable-card" data-id="<%- userCardsInfo[i].id %>" src="<%- userCardsInfo[i].highResImage %>" alt="" />
+    <% } %> <% } %>
+    </div>
+  </div>
+
+  <div class="right-trade-side">
+    <h1>Receiving:</h1>
+    <div class="cards-wrapper">
+    <% for(let i = 0; i < targetFriendCardsInfo.length; i++) { %> <% if (userCardsInfo[i])
+    { %>
+    <img class="cards selectable-card" data-id="<%- targetFriendCardsInfo[i].id %>" src="<%- targetFriendCardsInfo[i].highResImage %>" alt="" />
+    <% } %> <% } %>
+    </div>
+  </div>
+</div>
+
+<button id="submit-trade">Submit Trade</button>
+
+<footer>
+  <%- include("partials/footer", {state: "friends"}) %>
+</footer>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
+</script>
+
+
+<script>
+  document.querySelectorAll('.selectable-card').forEach(card => {
+    card.addEventListener('click', function() {
+      this.classList.toggle('selected-card');
+    });
+  });
+  
+  function getSelectedCardIds() {
+    return Array.from(document.querySelectorAll('.selected-card'))
+      .map(card => card.dataset.id);
+  }
+
+  document.getElementById('submit-trade').addEventListener('click', function() {
+    const selectedIds = getSelectedCardIds();
+    console.log('Selected card IDs:', selectedIds);
+  });
 </script>
