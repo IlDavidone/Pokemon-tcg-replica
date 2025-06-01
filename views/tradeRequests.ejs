@@ -1,0 +1,21 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/trade.css">
+
+<% if(tradeRequests.length == 0) { %>
+    <p>No trade requests...</p>
+<% } %>
+<% for(let i = 0; i < tradeRequests.length; i++) { %>
+    <h3>From: <%- tradeRequests[i].fromUser %></h3>
+    <h4>Cards Given: <%= tradeRequests[i].cardsGiven.map(c => c.card).join(", ") %></h4>
+    <h4>Cards Received: <%= tradeRequests[i].cardsReceived.map(c => c.card).join(", ") %></h4>
+    <p>Expiration: <%- tradeRequests[i].expirationDate.toLocaleString() %></p>
+    <form method="POST" action="/accept-trade/<%= tradeRequests[i]._id %>">
+        <button type="submit">Accept</button>
+    </form>
+<% } %>
+
+<footer>
+    <%- include("partials/footer", {state: "friends"}) %>
+</footer>

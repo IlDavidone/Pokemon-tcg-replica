@@ -238,39 +238,87 @@ router.get("/send-trade/:userId", isAuth, async (req, res, next) => {
     userCardsInfo: userCardsInfo,
     targetFriendCards: targetFriendCardsIds,
     targetFriendCardsInfo: targetFriendCardsInfo,
+    targetFriend: req.params.userId
   });
 });
 
-router.post("/send-trade", isAuth, async (req, res, next) => {
+router.post("/send-trade/:userId", isAuth, async (req, res, next) => {
   const user = await User.findById(req.user._id);
-  const targetUser = await User.findOne({ username: req.body.username });
+  const targetFriend = await User.findById(req.params.userId);
 
-  const cardsGiven = Array.isArray(req.body.cardGiven)
-    ? req.body.cardGiven.map((cardId) => ({ card: cardId }))
-    : [{ card: req.body.cardGiven }];
+  const cardsGiven = JSON.parse(req.body.cardsGiven);
+  const cardsReceived = JSON.parse(req.body.cardsReceived); 
 
-  const cardsReceived = Array.isArray(req.body.cardReceived)
-    ? req.body.cardReceived.map((cardId) => ({ card: cardId }))
-    : [{ card: req.body.cardReceived }];
+  targetFriend.tradeRequests.push({
+    fromUser: user._id,
+    cardsGiven: cardsGiven.map(card => ({ card })), 
+    cardsReceived: cardsReceived.map(card => ({ card })),
+    expirationDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    acceptation: false
+  });
 
-  const cardEntry = targetUser.cardsCollection.find(
-    (entry) => String(entry.card) === String(req.body.cardReceived)
+  await targetFriend.save();
+
+  res.redirect("/friends");
+});
+
+router.get("/trade-requests", isAuth, async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  const tradeRequests = user.tradeRequests || [];
+  res.render("tradeRequests", { tradeRequests });
+});
+
+router.post("/accept-trade/:tradeId", isAuth, async (req, res, next) => {
+  const receiver = await User.findById(req.user._id);
+
+  const tradeRequest = receiver.tradeRequests.id(req.params.tradeId);
+  if (!tradeRequest) {
+    return res.status(404).send("Trade request not found.");
+  }
+
+  const sender = await User.findById(tradeRequest.fromUser);
+
+  tradeRequest.cardsGiven.forEach(({ card }) => {
+    // Remove from sender
+    const senderCard = sender.cardsCollection.find(c => c.card === card);
+    if (senderCard) {
+      senderCard.quantity -= 1;
+      if (senderCard.quantity <= 0) {
+        sender.cardsCollection = sender.cardsCollection.filter(c => c.card !== card);
+      }
+    }
+    const receiverCard = receiver.cardsCollection.find(c => c.card === card);
+    if (receiverCard) {
+      receiverCard.quantity += 1;
+    } else {
+      receiver.cardsCollection.push({ card, quantity: 1 });
+    }
+  });
+
+  tradeRequest.cardsReceived.forEach(({ card }) => {
+    const receiverCard = receiver.cardsCollection.find(c => c.card === card);
+    if (receiverCard) {
+      receiverCard.quantity -= 1;
+      if (receiverCard.quantity <= 0) {
+        receiver.cardsCollection = receiver.cardsCollection.filter(c => c.card !== card);
+      }
+    }
+    const senderCard = sender.cardsCollection.find(c => c.card === card);
+    if (senderCard) {
+      senderCard.quantity += 1;
+    } else {
+      sender.cardsCollection.push({ card, quantity: 1 });
+    }
+  });
+
+  receiver.tradeRequests = receiver.tradeRequests.filter(
+  tr => tr._id.toString() !== req.params.tradeId
   );
 
-  if (cardEntry) {
-    targetUser.tradeRequests.push({
-      fromUser: user.username,
-      cardsGiven,
-      cardsReceived,
-      expirationDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-      acceptation: false,
-    });
+  await sender.save();
+  await receiver.save();
 
-    await targetUser.save();
-    res.redirect("/send-trade");
-  } else {
-    res.redirect("/home");
-  }
+  res.redirect("/friends");
 });
 
 router.get("/collection", isAuth, async (req, res, next) => {

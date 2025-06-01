@@ -26,6 +26,7 @@ h1 {
 .cards {
     height: 300px;
     width: 225px;
+    margin-bottom: 5px;
 }
 
 .selected-card {
