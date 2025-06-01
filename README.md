@@ -19,9 +19,6 @@ This project is my vision on the Pokémon tcg pocket / og game, where you can co
 * Friends list and requests
 
 > [!IMPORTANT]
-> Trades initialized but to polish, so no possibility to do it for now
-
-> [!WARNING]
 > Credits system to be implemented, so not to be expected for now
 
 ## Building
