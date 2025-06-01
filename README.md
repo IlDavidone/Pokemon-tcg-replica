@@ -18,6 +18,8 @@ This project is my vision on the Pokémon tcg pocket / og game, where you can co
 
 * Friends list and requests
 
+* Trade Send and Requests
+
 > [!IMPORTANT]
 > Credits system to be implemented, so not to be expected for now
 
